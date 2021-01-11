@@ -31,16 +31,21 @@ namespace ZUtility.Unity
             gridArray = new T[width, height];
             debugTextArray = new TextMesh[width, height];
         }
-
         /// <summary>Draw debug lines and display ToString() on each position.
         /// </summary>
         public void DrawDebugGrid()
+        {
+            DrawDebugGrid(null);
+        }
+        /// <summary>Draw debug lines and display ToString() on each position placing textMesh objects under parent.
+        /// </summary>
+        public void DrawDebugGrid(Transform parent)
         {
             for (int x = 0; x < gridArray.GetLength(0); x++)
             {
                 for (int y = 0; y < gridArray.GetLength(1); y++)
                 {
-                    debugTextArray[x, y] = TextUtility.CreateWorldText(null, gridArray[x, y].ToString(), GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, debugFontSize, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
+                    debugTextArray[x, y] = TextUtility.CreateWorldText(parent, gridArray[x, y].ToString(), GetWorldPosition(x, y) + new Vector3(cellSize, cellSize) * .5f, debugFontSize, Color.white, TextAnchor.MiddleCenter, TextAlignment.Center);
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x, y + 1), Color.white, 100f);
                     Debug.DrawLine(GetWorldPosition(x, y), GetWorldPosition(x + 1, y), Color.white, 100f);
                 }
